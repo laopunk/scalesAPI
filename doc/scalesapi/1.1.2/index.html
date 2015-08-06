@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>scalesapi 1.1.2</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>SCALESAPI.JS</h1><h2>Installation:</h2><p>You may import the code into an existing node.js project or import it directly into your HTML code</p>
+<ul>
+<li>Node module import<pre class="prettyprint source lang-shell"><code># local install to your project
+npm install --save-dev scalesapi</code></pre><pre class="prettyprint source lang-javascript"><code>// import module into your js code
+var sc = require('scalesapi')</code></pre></li>
+<li>plain JS import<pre class="prettyprint source lang-html"><code>&lt;!-- minified version, not human friendly, 56kb-->
+&lt;script type=&quot;text/javascript&quot; src=&quot;scalesAPI.min.js&quot;>&lt;/script>
+&lt;!-- uncompressed version, human friendly, 422kb -->
+&lt;script type=&quot;text/javascript&quot; src=&quot;scalesAPI.js&quot;>&lt;/script></code></pre>The module is instanciated in the object sc, which you can use right away<pre class="prettyprint source lang-javascript"><code>getScales(&quot;info&quot;)</code></pre></li>
+</ul>
+<h2>Constructors</h2><p>No constructor, the library consists of methods only.
+It consists of three main functions : </p>
+<ul>
+<li>getScales: information about chords and notes existing in a scale</li>
+<li>getChords: information about chords existing in a scale</li>
+<li>getNotes:  information about notes existing in a scale</li>
+</ul>
+<h2>Methods</h2><h5><code>getScales(action, [value])</code></h5><ul>
+<li><p>getScales(&quot;names&quot;)</p>
+<pre class="prettyprint source lang-javascript"><code>getScales(&quot;names&quot;)        //returns a list like [&quot;Major&quot;, &quot;Natural Minor&quot;, ...]</code></pre><p>Get the list of names from all scales available in the config</p>
+</li>
+<li><p>getScales(&quot;info&quot;, [scaleName])</p>
+<pre class="prettyprint source lang-javascript"><code>getScales(&quot;info&quot;)         //returns data for all scales
+getScales(&quot;info&quot;,&quot;Major&quot;) //returns data for the Major scale only</code></pre><p>Get scales meta-data information (object) from the config: </p>
+<ul>
+<li>chord sequence for 3 notes chords</li>
+<li>chord sequence for 4 notes chords</li>
+<li>interval sequence
+If <value> is not provided, return data for all scales</li>
+</ul>
+</li>
+<li><p>getScales(&quot;object&quot;)</p>
+<pre class="prettyprint source lang-javascript"><code>getScales(&quot;object&quot;)       //returns object</code></pre><p>Get scales content from the config, for all keys in all scales: </p>
+<pre class="prettyprint source lang-javascript"><code>scaleName
+  \__ keyName
+      \__ Chords3: [list of chords with 3 notes] 
+      \__ Chords4: [list of chords with 4 notes] 
+      \__ Notes:   [list of notes present in the scale]</code></pre></li>
+<li><p>getScales(&quot;fromChords&quot;, chordsArray)</p>
+<pre class="prettyprint source lang-javascript"><code>getScales(&quot;fromChords&quot;,[])                          //returns all keys in all scales
+getScales(&quot;fromChords&quot;,[&quot;Amin&quot;,&quot;Cmaj&quot;,&quot;Dmin&quot;])      //returns keys in two scales</code></pre><p>The most popular method. It allows you to know which keys in various scales a set of chords belongs to.
+Returns an object containing this info:</p>
+<pre class="prettyprint source lang-javascript"><code>scaleName
+  \__ keyName</code></pre></li>
+<li><p>getScales(&quot;fromNotes&quot;, notesArray)</p>
+<pre class="prettyprint source lang-javascript"><code>getScales(&quot;fromNotes&quot;,[])                  //returns all keys in all scales
+getScales(&quot;fromNotes&quot;,[&quot;A&quot;,&quot;C&quot;,&quot;Db&quot;])      //returns keys in two scales</code></pre><p>The most popular method. It allows you to know which keys in various scales a set of notes belongs to.
+Returns an object containing this info:</p>
+<pre class="prettyprint source lang-javascript"><code>scaleName
+  \__ keyName</code></pre></li>
+</ul>
+<h5><code>getChords(scaleName, [key], [nbNotes])</code></h5><ul>
+<li><p>getChords(&quot;*&quot;)</p>
+<pre class="prettyprint source lang-javascript"><code>getChords(&quot;*&quot;)        //returns a list of chords</code></pre><p>Get the full list of unique chords in all scales</p>
+</li>
+<li><p>getChords(&quot;byRoot&quot;)</p>
+<pre class="prettyprint source lang-javascript"><code>getChords(&quot;byRoot&quot;)   //returns a list of chords</code></pre><p>Get the full list of unique chords in all scales, grouped by key</p>
+</li>
+<li><p>getChords(scaleName)</p>
+<pre class="prettyprint source lang-javascript"><code>getChords(&quot;Major&quot;)   //returns a list of all chords present in the Major scale, all keys included</code></pre><p>Get the full list of unique chords in a specific scale . The list of available scales can be obtained from getScales(&quot;names&quot;)</p>
+</li>
+<li><p>getChords(scaleName, keyName)</p>
+<pre class="prettyprint source lang-javascript"><code>getChords(&quot;Major&quot;,&quot;E&quot;)   //returns a list of all chords present in the key of E in the Major scale</code></pre><p>Get the full list of unique chords in a specific scale for a specific key</p>
+</li>
+<li><p>getChords(scaleName, keyName, nbNotes)</p>
+<pre class="prettyprint source lang-javascript"><code>getChords(&quot;Major&quot;,&quot;E&quot;, 3)   //returns a list of all 3 notes chords present in the key of E in the Major scale
+getChords(&quot;Major&quot;,&quot;E&quot;, 4)   //returns a list of all 4 notes chords present in the key of E in the Major scale</code></pre><p>Get the full list of unique chords in a specific scale, for a specific key and a specific nb of notes in the chords</p>
+</li>
+</ul>
+<h5><code>getNotes(scaleName, [key])</code></h5><ul>
+<li><p>getNotes(&quot;*&quot;)</p>
+<pre class="prettyprint source lang-javascript"><code>getNotes(&quot;*&quot;)        //returns a list of notes</code></pre><p>Get the full list of unique notes in all scales and all keys. This is the equivalent of the chromatic scale.</p>
+</li>
+<li><p>getNotes(scaleName)</p>
+<pre class="prettyprint source lang-javascript"><code>getNotes(&quot;Harmonic Minor&quot;)        //returns a list of notes in the harmonic minor scale</code></pre><p>Get the full list of unique notes in a specicif scale for all keys</p>
+</li>
+<li><p>getNotes(scaleName, keyName)</p>
+<pre class="prettyprint source lang-javascript"><code>getNotes(&quot;Harmonic Minor&quot;,&quot;Eb&quot;)        //returns a list of notes in the harmonic minor scale, key of Eb</code></pre><p>Get the full list of unique notes in a specicif scale for a specific key</p>
+</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-scalesAPI.html">scalesAPI</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Aug 06 2015 20:54:18 GMT+0100 (BST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
