@@ -1,5 +1,14 @@
 SCALESAPI.JS
 ===
+## Purpose
+This library / module is your javascript swiss knife to easily work around musical scales even if you are not a musician.
+Clearly, it will allow you to "sound good" and more importantly "sound in key" when you want to randomly play sounds.
+- use cases
+	- Find the scale you're in, from a set of chords or notes (Ideal for composers)
+	- Find all existing chords and notes in a scale you're interested in working with
+- related libraries
+	- [notePlayer](https://github.com/laopunk/notePlayer)
+	- [chordPlayer](https://github.com/laopunk/chordPlayer)
 
 ## Installation:
 You may import the code into an existing node.js project or import it directly into your HTML code
