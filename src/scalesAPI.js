@@ -100,7 +100,7 @@ var scalesAPI = (function() {
             */
             if( !key ){
                 return _(DICT_KEYS).map(function(e2){ //parsing all keys
-                    return sc.getNotes(scaleName,e2)
+                    return getNotes(scaleName,e2)
                 })
                 .flattenDeep()
                 .uniq()
